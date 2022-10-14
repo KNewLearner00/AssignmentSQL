@@ -153,9 +153,20 @@ select * From Employee
 alter table Employee add Datejoin int Identity (22,10)
 select Datejoin from Employee Order by Datejoin desc
 
+select ID , FirstName,lastName,city,Country,Phone,OrdID,OrderDate 
+FROM Customer1 JOIN Order2 ON 
+Customer1.ID=Order2.CustomerID;
+
 select * from Product
  Select max( Unitprice) AS [Most Expensive],MIN(Unitprice) As [Least Expensive] from Product
 select ProductName from Product 
+
+Select FirstName As CustomerName, Quantity As MaximumOrder 
+FROM Customer1 INNER JOIN Order2 on 
+Customer1.ID=Order2.CustomerID
+INNER JOIN OrderItem on 
+Order2.OrdID=OrderItem.OrderitemID 
+where OrderItem.Quantity =(select  max(Quantity) From OrderItem)
 
 Select *from Customer1
 Select *from Order2

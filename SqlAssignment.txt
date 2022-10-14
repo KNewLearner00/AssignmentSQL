@@ -1,0 +1,164 @@
+use Assignment2
+Go
+Create table Customer1
+( ID int Primary Key Identity (10,10),
+FirstName nvarchar(40) not null ,
+lastName nvarchar(40),
+city nvarchar(40),
+Country nvarchar(40),
+Phone nvarchar(40));
+
+Insert into Customer1 values ('Tae','Kim','seoul','Korea','9879879871' )
+Insert into Customer1 values ('Jai','mishra','Kanpur','India','9877891234' )
+Insert into Customer1 values ('Akriti','Awathi','Berlin','Germany','2343454561' )
+Insert into Customer1 values ('Mahima','Mishra','Lucknow','India','9878767654')
+insert into Customer1 values ('Diana','Kruger','Hessen','Germany','1234567891' )
+Insert into Customer1 values ('Johnny','Depp','Owensboro','United State','9879345631' )
+Insert into Customer1 values ('chris','Evans','Hamburg','Germany','9232432131' )
+Insert into Customer1 values ('Tony','Stark','California','America','9324123471' )
+
+Select *from Customer1
+
+Create Table Order2(
+OrdID int Primary Key Identity (100,10),
+OrderDate datetime ,
+OrderNumber nvarchar(10),
+CustomerID int ,
+TotalAmount decimal (12,2),
+)
+select *from Order2
+insert into Order2 values ( 1/2/2020 , '21', 10 ,200)
+Alter Table Order2 add constraint Order2_CustomerID_FK Foreign Key (CustomerID) references Customer1 (ID) 
+insert into Order2 values ( 2020-05-03 , '2', 20 ,400)
+
+create table Product (
+proID int primary key ,
+ProductName nvarchar(50) not null,
+Unitprice decimal (12,2),
+Package nvarchar(30), 
+Isdiscounued  bit )
+
+select *from Product
+insert into Product values ( 504, 'pasta', 124.2,'polythen','true')
+insert into Product values ( 509 , 'chesse',80.30 ,'packet','true')
+insert into Product values ( 505 , 'Pizza Sauce', 112.20,'packet','true')
+insert into Product values ( 510 , 'cofee', 10,'packet','1')
+insert into Product values ( 512 , 'maggie', 85.23,'packet','true')
+insert into Product values ( 515 , 'tomato sauce', 105,'packet','true')
+insert into Product values ( 520 , 'Frooti', 100,'bottle','true')
+
+create  table OrderItem (
+OrderitemID int primary key ,
+OrdID int foreign key references Order2 (OrdID),
+proID int foreign key references Product (proID),
+unitPrice decimal (12,2),
+Quantity int )
+select * from OrderItem
+insert into  OrderItem values ( 1 , 100 , 504 , 2000, 10)
+insert into  OrderItem values ( 2 , 110 , 509 , 860, 9)
+insert into  OrderItem values ( 3 , 140 , 505 , 430, 8)
+insert into  OrderItem values ( 4 , 150 , 510 , 240, 7)
+insert into  OrderItem values ( 5 , 160 , 512, 800, 6)
+insert into  OrderItem values ( 6 , 170 , 515, 700, 5)
+insert into  OrderItem values ( 7 , 180 , 520, 800, 4)
+
+
+Select * from Customer1
+Select * from Order2
+Select * from OrderItem
+Select * from Product
+
+select * from Customer1  where Country ='America' 
+select * from Customer1  where Country ='India' 
+Select * from Customer1 where FirstName like '%%i'
+
+SECTION-2
+
+select * from Customer1 where Country ='Germany'
+
+create table Employee ( Fullname varchar(20) not null)
+insert into Employee values (' Krati Mishra')
+insert into Employee values ('Shivam Mishra')
+insert into Employee values ( 'Taniya Mishra')
+insert into Employee values ( ' Akriti Mishra')
+select * from Employee
+
+
+select * from Customer1 where FirstName Like '%u%'
+
+update OrderItem Set unitPrice = 10 where OrderitemID = 2
+update OrderItem Set unitPrice = 14 where OrderitemID = 3
+update OrderItem Set unitPrice = 16 where OrderitemID = 5
+update OrderItem Set unitPrice = 19 where OrderitemID = 6
+Select *from OrderItem
+
+select * from OrderItem where unitPrice >10 and unitPrice <20
+
+select * from Order2
+select OrderDate FROM Order2
+Group by  OrderDate;
+
+Select * from Order2 where OrderDate between 2020-02-01 And 2020-05-03 
+
+Select * From Product 
+update Product set ProductName =' Exotic Liquids' 
+where proID = 520
+
+Select  ProductName FROM Product
+WHERE ProductName = 'Exotic Liquids'
+
+Select AVG(Quantity) FROM OrderItem
+
+Alter table Employee add ManagerName varchar(20) 
+insert into Employee values ( 'Ram Avtar ', 'Ramesh Sharma') 
+
+SELECT * FROM Employee
+SELECT Fullname,ManagerName FROM Employee
+
+Section -3
+
+select Id, FirstName , lastName ,city,Country,Phone, OrdID,OrderDate,OrderNumber,TotalAmount 
+From Customer1  JOIN Order2
+ON Customer1.ID = Order2.OrdID WHERE Customer1.Phone='9879879871';
+
+Select * From Product
+update Product set ProductName = 'Seafood' where ProductName='maggie'
+Select * From Product where ProductName='Seafood';
+
+update Customer1 set Country= 'London' where ID=60
+ select * from Customer1
+select * from Customer1 where Country !='London'
+
+ Select * from Product
+update Product set ProductName ='Chai' where proID =509 
+select * from Product  where ProductName='chai'
+
+Select * from Employee
+ALTER TABLE Employee ADD DeptName nvarchar(20)
+ALTER TABLE Employee ADD Rating Integer;
+SELECT Fullname, DeptName,Rating 
+FROM EMPLOYEE WHERE Fullname='Krati Mishra' 
+
+Section-4
+
+Alter table Product ADD ShipCompany nvarchar(20) 
+Select ShipCompany, TotalAmount As TotalPrice
+From Order2 Inner Join OrderItem 
+on Order2.OrdID =OrderItem.OrderitemID 
+Inner Join Product on
+OrderItem.ProId=Product.proID
+WHERE ProductName='Exotic Liquid' AND TotalAmount>50; 
+
+select * From Employee
+alter table Employee add Datejoin int Identity (22,10)
+select Datejoin from Employee Order by Datejoin desc
+
+select * from Product
+ Select max( Unitprice) AS [Most Expensive],MIN(Unitprice) As [Least Expensive] from Product
+select ProductName from Product 
+
+Select *from Customer1
+Select *from Order2
+Select *from OrderItem
+Select *from Product
+Select *from Employee
